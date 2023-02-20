@@ -5,6 +5,7 @@ const {
   getProductBySlug,
   getProductDetailsById,
   deleteProductById,
+  getHomeProducts,
 } = require("../controllers/product");
 const { requireSigin, adminMiddleWare, upload } = require("../middlewares");
 
@@ -18,6 +19,7 @@ router.post(
   addProduct
 );
 
+router.get("/get-home-products", getHomeProducts);
 router.get("/products/:slug", getProductBySlug);
 router.get("/product/:productId", getProductDetailsById);
 router.post(

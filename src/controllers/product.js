@@ -79,7 +79,7 @@ exports.getProductDetailsById = (req, res) => {
 };
 
 exports.deleteProductById = (req, res) => {
-  const { productId } = req.body.payload;
+  const { productId } = req.body;
   if (productId) {
     Product.deleteOne({ _id: productId }).exec((error, result) => {
       if (error) return res.status(400).json({ error });
@@ -96,4 +96,23 @@ exports.getProducts = async (req, res) => {
     .exec();
 
   res.status(200).json({ products });
+};
+
+exports.getProducts = async (req, res) => {
+  const orders = await Order.find({})
+    .populate("items.productId", "name")
+    .exec();
+
+  res.status(200).json({
+    orders,
+  });
+};
+
+exports.getHomeProducts = (req, res) => {
+  Product.find({})
+    .limit(20)
+    .exec((error, products) => {
+      if (error) return res.status(400).json({ error });
+      if (products) return res.status(200).json({ products });
+    });
 };
