@@ -57,7 +57,7 @@ exports.getProductBySlug = (req, res) => {
                   (product) =>
                     product.price > 10000000 && product.price < 20000000
                 ),
-                over20m: products.filter((product) => product.price > 20000000),
+                over20m: products.filter((product) => product.price >= 20000000),
               },
             });
         });
